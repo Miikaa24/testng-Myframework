@@ -70,7 +70,7 @@ public class TestBase {
 
 
 
-          //  Driver.quitDriver();
+            Driver.quitDriver();
         }
 
     @AfterSuite(alwaysRun = true)

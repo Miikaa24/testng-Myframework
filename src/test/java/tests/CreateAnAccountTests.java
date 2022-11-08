@@ -15,14 +15,7 @@ import java.util.Random;
 public class CreateAnAccountTests extends TestBase{
 
 
-
-//    @Test (dataProvider = "registration")
-//    public void registeringFromCSVfile(String email1, String name, String company, String address, String addressRest, String zipcode, String phone, String passwordFake) throws InterruptedException {
-
-
-
-    //driver.findElement(By.xpath("//a[text()='Order']")).click();
-    @Test
+    @Test //1
             public void createAnAccountRandomData(){
 
         CreateAnAccountPage createAnAccountPage = new CreateAnAccountPage();
@@ -40,7 +33,7 @@ public class CreateAnAccountTests extends TestBase{
         Assert.assertTrue(createAnAccountPage.errorMessage.isDisplayed());
 
     }
-    @Test (dataProvider = "Users")
+    @Test (dataProvider = "Users") //2
     public void createAnAccountCSVFile(String email1, String name, String company, String address, String city, String state, String zip1, String phone, String passwordFake) {
 
         CreateAnAccountPage createAnAccountPage = new CreateAnAccountPage();
@@ -64,29 +57,41 @@ public class CreateAnAccountTests extends TestBase{
        return CSVreader.readFromCSV("src/test/resources/TestDataForMyFramework.csv");
    }
 
-   @Test
+   @Test //3
    public void createAnAccountCorrectAddress(){
 
        CreateAnAccountPage createAnAccountPage = new CreateAnAccountPage();
 
        SeleniumUtils.jsClick(createAnAccountPage.registerLink);  //Managing the correct UI
 
-       createAnAccountPage.email.sendKeys();
-
-       createAnAccountPage.addressName.sendKeys();
-
-       createAnAccountPage.companyName.sendKeys();
+       createAnAccountPage.enterSomeRandomdata();
 
        createAnAccountPage.chooseACompany("Bakery");
-
-       createAnAccountPage.address1.sendKeys("1685 Milwaukee Ave");
-
 
        Assert.assertTrue(createAnAccountPage.shippingAddress.isSelected());
 
        createAnAccountPage.createAccount.click();
 
-       Assert.assertTrue(createAnAccountPage.errorMessage.isDisplayed());
+       Assert.assertTrue(createAnAccountPage.dashBoard.isDisplayed());
 
    }
+
+    @Test //4
+    public void createAnAccountEmptyData(){
+
+        CreateAnAccountPage createAnAccountPage = new CreateAnAccountPage();
+
+        SeleniumUtils.jsClick(createAnAccountPage.registerLink);  //Managing the correct UI
+
+        createAnAccountPage.enterEmptyData();
+
+        createAnAccountPage.chooseACompany("Bakery");
+
+        Assert.assertTrue(createAnAccountPage.shippingAddress.isSelected());
+
+        createAnAccountPage.createAccount.click();
+
+        Assert.assertTrue(createAnAccountPage.errorMessage.isDisplayed());
+
+    }
 }

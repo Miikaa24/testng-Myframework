@@ -55,7 +55,10 @@ public class CreateAnAccountPage {
     @FindBy (xpath="//div/p[@class=\"error_message alert\"]")
     public WebElement errorMessage;
 
-    //ReceiveCoupons name
+    @FindBy (xpath = "//*[@class='page-header']")
+    public WebElement dashBoard;
+
+
 
     public void enterRandomData() {
         Faker fake = new Faker();
@@ -86,8 +89,37 @@ public class CreateAnAccountPage {
 
 }
 
+    public void enterSomeRandomdata() {
+        Faker fake = new Faker();
+
+        email.sendKeys(fake.internet().emailAddress());
+        addressName.sendKeys(fake.name().fullName());
+        companyName.sendKeys(fake.company().name());
+        address1.sendKeys("1685 Milwaukee Ave");
+        address2.sendKeys("Glenview, IL");
+        phoneNumber.sendKeys(fake.phoneNumber().cellPhone());
+        zipCode.sendKeys("60025");
+        password.sendKeys(fake.internet().password());
+    }
+
+    public void enterEmptyData() {
+        Faker fake = new Faker();
+
+        email.sendKeys("");
+        addressName.sendKeys("");
+        companyName.sendKeys("");
+        address1.sendKeys("");
+        address2.sendKeys("");
+        phoneNumber.sendKeys("");
+        zipCode.sendKeys("");
+        password.sendKeys("");
+    }
+
+
     public void chooseACompany(String companyType) { new Select(companyTypeDropdown).selectByVisibleText(companyType);
     }
+
+
 }
 
 
